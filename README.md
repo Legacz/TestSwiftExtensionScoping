@@ -26,25 +26,25 @@ proper scoping, even on ObjC objects. Checkout `ZamUsingAwesomeO` for this.
 One would awesome that the same is true for `internal`, but it actually isn't,
 the extension is converted into a category again.
 
-There are three frameworks in this demo:
-- ZeeBaseFramework - defines a NSObject derived class (`@objc`), `AwesomeO`
-- ZumBaseExtension - extends AwesomeO and adds a method `printCool`, which is 
-used in the framework
-- ZamBaseExtension - extends AwesomeO with the same method and a different imp
-
-And then there is a TestSwiftExtensionScoping App which uses both, Zum and Zam.
-When running them, you'll see that 'wrong' implementations are picked.
-The 'overriding' issue you had w/ categories is still here.
+This repo has both variants: one which uses a native Swift type, and one which
+uses a Swift subclass of an Objective-C type.
 
 ## Summary
 
-- extensions on native Swift types scope as expected
+- extensions on native Swift types dispatch in isolation
 - extensions on Objective-C classes *mostly* become categories and hence do
   scope selectors globally
   - unless the extension is private, in this case the local implementation is
     picked (a (useful) bug?)
 
 As all bridges, the Swift-ObjC one is full of surprises :-)
+
+## P.S. Objective-C 'extensions'
+
+Those are just categories and behave like such (plus some compiler extras).
+They have nothing to do with native Swift extensions and how such are
+dispatched.
+
 
 ### Contact
 
